@@ -1,0 +1,5 @@
+#!/bin/bash
+
+aws eks update-kubeconfig \
+--name EKSExperimentation \
+--profile work
