@@ -3,4 +3,5 @@
 aws cloudformation create-stack \
 --stack-name EKS-ExperimentationStack \
 --template-body file://./EKS-ExperimentationStack.yml \
+--notification-arns "arn:aws:sns:us-east-1:548834087182:CloudFormationUpdates" \
 --profile work
