@@ -1,0 +1,38 @@
+Description: >
+  Stack to spin up a quick and simple EKS cluster with one node group
+  
+Resources:
+    EKSCluster:
+        Type: AWS::EKS::Cluster
+        Properties: 
+          Name: EKSExperimentation
+          ResourcesVpcConfig: 
+            SubnetIds: 
+                - subnet-0d362b81c1cf9f455
+                - subnet-03651185a9429f641
+                - subnet-04a348b8949117929
+          RoleArn: arn:aws:iam::548834087182:role/EKSClusterRole
+      
+    EKSNodeGroup:      
+        Type: AWS::EKS::Nodegroup
+        Properties: 
+          ClusterName: EKSExperimentation
+          InstanceTypes: 
+            - t3.micro
+          Labels: 
+            NodeGroup: EKSNodeGroup01
+          NodegroupName: EKSNodeGroup01
+          NodeRole: arn:aws:iam::548834087182:role/NodeInstanceRole
+          RemoteAccess: 
+            Ec2SshKey: rc-putty
+          ScalingConfig: 
+            DesiredSize: 1
+            MaxSize: 10
+            MinSize: 1
+          Subnets: 
+            - subnet-0d362b81c1cf9f455
+            - subnet-03651185a9429f641
+            - subnet-04a348b8949117929
+        DependsOn:
+          - EKSCluster
+
